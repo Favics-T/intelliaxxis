@@ -1,7 +1,5 @@
 import type { FC } from 'react';
+import { OnboardingWizard } from '../component/onboarding/OnboardingWizard';
 
-export const OnboardingPage: FC = () => (
-  <div className="flex min-h-screen items-center justify-center bg-bg">
-    <p className="text-textSecondary">Onboarding coming soon...</p>
-  </div>
-);
+
+export const OnboardingPage: FC = () => <OnboardingWizard />;
