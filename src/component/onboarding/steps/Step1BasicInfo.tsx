@@ -1,6 +1,7 @@
 import { type FC, useState } from 'react';
 import { useProfileStore } from '../../../store/profileStore';
 import { Input } from '../../ui/Input';
+import { Select } from '../../ui/Select';
 import { Button } from '../../ui/Button';
 import {
   INDUSTRIES,
@@ -59,18 +60,17 @@ export const Step1BasicInfo: FC<Props> = ({ onNext }) => {
 
   return (
     <div className="animate-[fade-up_0.4s_ease-out_both] space-y-8">
-      {/* Heading */}
       <div>
         <div className="label-tag">Step 1 of 5</div>
         <h2 className="text-2xl font-bold tracking-tight text-textPrimary">
           Tell us about your business
         </h2>
         <p className="mt-2 text-sm text-textSecondary">
-          This helps IntelliAxis personalise every insight and recommendation to your specific context.
+          This helps IntelliAxis personalise every insight and recommendation
+          to your specific context.
         </p>
       </div>
 
-      {/* Fields */}
       <div className="space-y-5">
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Input
@@ -89,27 +89,15 @@ export const Step1BasicInfo: FC<Props> = ({ onNext }) => {
           />
         </div>
 
-        {/* Industry */}
-        <div className="flex flex-col gap-1.5">
-          <label className="font-mono text-[10px] uppercase tracking-[0.16em] text-textSecondary">
-            Industry
-          </label>
-          <select
-            value={profile.industry}
-            onChange={(e) => updateProfile({ industry: e.target.value })}
-            className="input-field appearance-none cursor-pointer"
-          >
-            <option value="">Select your industry</option>
-            {INDUSTRIES.map((i) => (
-              <option key={i} value={i} className="bg-surface2">{i}</option>
-            ))}
-          </select>
-          {errors.industry && (
-            <p className="text-[11px] text-danger">{errors.industry}</p>
-          )}
-        </div>
+        <Select
+          label="Industry"
+          value={profile.industry}
+          options={INDUSTRIES}
+          onChange={(v) => updateProfile({ industry: v })}
+          placeholder="Select your industry"
+          error={errors.industry}
+        />
 
-        {/* Sub-sector */}
         <Input
           label="Sub-sector (optional)"
           placeholder="e.g. Mobile payments, B2B SaaS, Fast fashion"
@@ -117,45 +105,27 @@ export const Step1BasicInfo: FC<Props> = ({ onNext }) => {
           onChange={(e) => updateProfile({ subSector: e.target.value })}
         />
 
-        {/* Stage + Revenue */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          <div className="flex flex-col gap-1.5">
-            <label className="font-mono text-[10px] uppercase tracking-[0.16em] text-textSecondary">
-              Business Stage
-            </label>
-            <select
-              value={profile.businessStage}
-              onChange={(e) => updateProfile({ businessStage: e.target.value as BusinessStage })}
-              className="input-field appearance-none cursor-pointer"
-            >
-              {STAGES.map((s) => (
-                <option key={s} value={s} className="bg-surface2">{s}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="flex flex-col gap-1.5">
-            <label className="font-mono text-[10px] uppercase tracking-[0.16em] text-textSecondary">
-              Annual Revenue
-            </label>
-            <select
-              value={profile.revenueRange}
-              onChange={(e) => updateProfile({ revenueRange: e.target.value as RevenueRange })}
-              className="input-field appearance-none cursor-pointer"
-            >
-              {REVENUE_RANGES.map((r) => (
-                <option key={r} value={r} className="bg-surface2">{r}</option>
-              ))}
-            </select>
-          </div>
+          <Select
+            label="Business Stage"
+            value={profile.businessStage}
+            options={STAGES}
+            onChange={(v) => updateProfile({ businessStage: v as BusinessStage })}
+          />
+          <Select
+            label="Annual Revenue"
+            value={profile.revenueRange}
+            options={REVENUE_RANGES}
+            onChange={(v) => updateProfile({ revenueRange: v as RevenueRange })}
+          />
         </div>
 
-        {/* Team size */}
-        <div className="flex flex-col gap-1.5">
+        {/* Team size pills */}
+        <div>
           <label className="font-mono text-[10px] uppercase tracking-[0.16em] text-textSecondary">
             Team Size
           </label>
-          <div className="flex flex-wrap gap-2">
+          <div className="mt-3 flex flex-wrap gap-2">
             {TEAM_SIZES.map((size) => (
               <button
                 key={size}

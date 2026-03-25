@@ -2,8 +2,6 @@ import { type FC, useState } from 'react';
 import { useProfileStore } from '../store/profileStore';
 import { Button } from '../component/ui/Button';
 import { Input, Textarea } from '../component/ui/Input';
-// import { Button } from '../components/ui/Button';
-// import { Input, Textarea } from '../components/ui/Input';
 import { INDUSTRIES, GOAL_OPTIONS, type BusinessGoal } from '../types/profile';
 
 export const ProfilePage: FC = () => {
