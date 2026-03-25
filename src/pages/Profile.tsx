@@ -3,6 +3,7 @@ import { useProfileStore } from '../store/profileStore';
 import { Button } from '../component/ui/Button';
 import { Input, Textarea } from '../component/ui/Input';
 import { INDUSTRIES, GOAL_OPTIONS, type BusinessGoal } from '../types/profile';
+import { Select } from '../component/ui/Select';
 
 export const ProfilePage: FC = () => {
   const { profile, updateProfile, resetProfile } = useProfileStore();
@@ -60,7 +61,7 @@ export const ProfilePage: FC = () => {
           <label className="font-mono text-[10px] uppercase tracking-[0.16em] text-textSecondary">
             Industry
           </label>
-          <select
+          {/* <select
             value={profile.industry}
             onChange={(e) => updateProfile({ industry: e.target.value })}
             className="input-field appearance-none cursor-pointer"
@@ -68,7 +69,13 @@ export const ProfilePage: FC = () => {
             {INDUSTRIES.map((i) => (
               <option key={i} value={i} className="bg-surface2">{i}</option>
             ))}
-          </select>
+          </select> */}
+          <Select
+            label='Industry'
+            value={profile.industry}
+            options={INDUSTRIES}
+            onChange={(v)=> updateProfile({industry:v})}
+          />
         </div>
         <Input
           label="Sub-sector"
