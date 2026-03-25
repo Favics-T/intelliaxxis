@@ -7,6 +7,8 @@ import { SignalDetailModal } from '../component/dashboard/SignalDetailMode';
 import { Spinner } from '../component/ui/Spinner';
 import { Button } from '../component/ui/Button';
 import type { Signal } from '../types/intelligence';
+import type { PriorityMatrix } from '../component/dashboard/PriorityMatrix'
+
 
 export const DashboardPage: FC = () => {
   const { profile }                              = useProfileStore();
@@ -101,7 +103,9 @@ export const DashboardPage: FC = () => {
 
       {/* Stats row */}
       {!isLoading && visibleSignals.length > 0 && (
+       
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+           
           {[
             { label: 'Total Signals',  value: visibleSignals.length, color: 'text-cyan' },
             { label: 'Critical / High', value: visibleSignals.filter(s => ['Critical','High'].includes(s.impactLevel)).length, color: 'text-amber' },

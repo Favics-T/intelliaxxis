@@ -11,19 +11,34 @@ const PAGE_TITLES: Record<string, { title: string; subtitle: string }> = {
   '/profile':      { title: 'Business Profile',        subtitle: 'Your business context and preferences' },
 };
 
-export const Topbar: FC = () => {
+interface Props {
+  onMenuClick: () => void;
+}
+
+export const Topbar: FC<Props> = ({ onMenuClick }) => {
   const location = useLocation();
   const page = PAGE_TITLES[location.pathname] ?? { title: 'IntelliAxis', subtitle: '' };
 
   return (
-    <header className="flex h-16 items-center justify-between border-b border-white/5 bg-surface/80 px-6 backdrop-blur-sm">
-      <div>
-        <h1 className="text-[15px] font-semibold text-textPrimary leading-tight">
-          {page.title}
-        </h1>
-        {page.subtitle && (
-          <p className="text-[11px] text-textSecondary mt-0.5">{page.subtitle}</p>
-        )}
+    <header className="flex h-16 items-center justify-between border-b border-white/5 bg-surface/80 px-4 backdrop-blur-sm md:px-6">
+      <div className="flex items-center gap-3">
+        {/* Hamburger — mobile only */}
+        <button
+          onClick={onMenuClick}
+          className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-textSecondary transition-all hover:border-white/20 hover:text-textPrimary md:hidden"
+        >
+          ☰
+        </button>
+        <div>
+          <h1 className="text-[15px] font-semibold text-textPrimary leading-tight">
+            {page.title}
+          </h1>
+          {page.subtitle && (
+            <p className="hidden text-[11px] text-textSecondary mt-0.5 sm:block">
+              {page.subtitle}
+            </p>
+          )}
+        </div>
       </div>
 
       <div className="flex items-center gap-2">
