@@ -21,7 +21,7 @@ export const ProfilePage: FC = () => {
   };
 
   return (
-    <div className="animate-[fade-up_0.5s_ease-out_both] max-w-2xl space-y-6">
+    <div className="animate-fade-up max-w-2xl space-y-6">
 
       {/* Header */}
       <div className="flex flex-wrap items-start justify-between gap-4">
