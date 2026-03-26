@@ -84,12 +84,20 @@ export default async function handler(
   }
 
   if (demoMode || !apiKey) {
-    res.status(200).json({
-      answer: `Great question about ${body.context.industry}. Based on ${body.context.businessName}'s current stage as a ${body.context.businessStage} in the ${body.context.targetMarket} market, here is my analysis:\n\n**Key Insight**\nThis is a demo response. Connect your Gemini API key to get real AI-powered research answers tailored specifically to your business.\n\n**What You Should Know**\nThe research chat feature allows you to ask any business or industry question and receive detailed, personalised answers that take into account your specific business context, goals, and market position.\n\n**Next Steps**\n1. Add your GEMINI_API_KEY to your environment variables\n2. Set DEMO_MODE=0\n3. Redeploy and ask your real question`,
-      sources: [],
-    });
-    return;
-  }
+  const demoAnswers: Record<string, string> = {
+    jumia: `**Situation Assessment**\nJumia's entry into Lagos grocery delivery is a serious competitive threat — but it's also a signal that validates your market. Here's what FreshCart should do in the next 30 days:\n\n**Week 1 — Don't Panic, Gather Intelligence**\nBefore reacting, understand exactly what Jumia is offering. Order from them 3-4 times across different neighbourhoods and document: actual delivery time vs. promised, product quality, packaging, customer service responsiveness, and pricing. You cannot out-compete what you haven't benchmarked.\n\n**Week 2 — Activate Your Moat**\nJumia's strength is breadth and brand. FreshCart's strength is depth and locality. This week, reach out personally to your top 50 customers. Don't pitch — just check in, ask for feedback, and remind them you exist. Churning customers back from Jumia is 5x harder than preventing them from leaving in the first place.\n\n**Week 3 — Launch Your Counter-Positioning**\nAnnounce FreshCart's "Local First" promise publicly: faster delivery, fresher produce, local supplier partnerships. Back it with a 20-minute delivery guarantee in your strongest zones. Jumia cannot operationally match hyperlocal speed — this is your wedge.\n\n**Week 4 — Go After B2B**\nJumia will focus on consumer volume. FreshCart should open a corporate accounts channel targeting Lagos companies with 50+ employees. One corporate account = 200 B2C customers in monthly revenue. Jumia's sales team is not calling HR managers — yours should be.\n\n**The Bottom Line**\nJumia entering your market means you were right about the opportunity. The businesses that survive well-funded competitor entry are the ones that go deeper into their niche rather than trying to match scale for scale. FreshCart's path is speed, locality, and quality — not price.`,
+
+    default: `**Analysis for ${body.context.businessName}**\n\nBased on your position as a ${body.context.businessStage} in the ${body.context.industry} space targeting the ${body.context.targetMarket} market, here is my assessment:\n\n**Current Market Position**\nYou are operating in a high-growth segment with significant opportunity ahead. The key variables that will determine your trajectory over the next 12 months are customer acquisition efficiency, operational scalability, and competitive differentiation.\n\n**Key Strategic Insight**\nBusinesses at your stage typically face a critical fork: compete broadly and burn capital, or go deep into a specific niche and build a defensible position. Given your current revenue range and team size, the data strongly favours the niche approach — own a specific customer segment completely before expanding.\n\n**What Your Competitors Are Missing**\nMost competitors in ${body.context.industry} are optimising for volume. The gap they leave is in quality, personalisation, and customer relationships — exactly where a ${body.context.businessStage} can win.\n\n**Recommended Actions**\n1. Identify your top 20% of customers by revenue and interview them this week — they will tell you exactly what to double down on\n2. Map the one thing you do better than anyone else and make it the centrepiece of your marketing\n3. Set a 90-day target for a single metric that matters most — whether that's CAC, NPS, or revenue per customer\n\n**Bottom Line**\nYou have the right foundation. The question is not whether the opportunity exists — it clearly does. The question is how fast you can move to establish a position that is genuinely hard to replicate.`,
+  };
+
+  const question = body.question.toLowerCase();
+  const answer = question.includes('jumia') || question.includes('competitor') || question.includes('competition')
+    ? demoAnswers.jumia
+    : demoAnswers.default;
+
+  res.status(200).json({ answer, sources: [] });
+  return;
+}
 
   try {
     const prompt = buildPrompt(body);
