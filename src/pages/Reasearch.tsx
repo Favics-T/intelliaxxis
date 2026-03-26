@@ -169,9 +169,18 @@ export const ResearchPage: FC = () => {
           )}
 
           {/* Messages */}
-          {activeSession?.messages.map((msg) => (
-            <ChatMessage key={msg.id} message={msg} />
-          ))}
+         {/* Messages */}
+{activeSession?.messages.map((msg, index) => {
+  const isLastMessage = index === activeSession.messages.length - 1;
+  const isAssistant   = msg.role === 'assistant';
+  return (
+    <ChatMessage
+      key={msg.id}
+      message={msg}
+      animate={isLastMessage && isAssistant}
+    />
+  );
+})}
 
           {/* Loading indicator */}
           {isLoading && (
