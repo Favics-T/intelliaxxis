@@ -11,10 +11,10 @@ import { AnimatedCounter } from '../component/ui/AnimatedCounter';
 import type { Signal } from '../types/intelligence';
 
 export const DashboardPage: FC = () => {
-  const { profile }                             = useProfileStore();
-  const { signals, lastGeneratedAt }            = useIntelligenceStore();
+  const { profile } = useProfileStore();
+  const { signals, lastGeneratedAt } = useIntelligenceStore();
   const { generate, isLoading, error, summary } = useIntelligence();
-  const [selectedSignal, setSelectedSignal]     = useState<Signal | null>(null);
+  const [selectedSignal, setSelectedSignal]= useState<Signal | null>(null);
 
   const visibleSignals = signals.filter((s) => !s.dismissed);
 
