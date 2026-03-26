@@ -1,4 +1,4 @@
-import type { FC } from 'react'
+import type { FC } from 'react';
 import { OnboardingWizard } from '../component/onboarding/OnboardingWizard';
 // import { OnboardingWizard } from '../components/onboarding/OnboardingWizard';
 import { useProfileStore } from '../store/profileStore';

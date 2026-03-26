@@ -1,4 +1,5 @@
 import type { Signal } from '../types/intelligence';
+import type { BusinessGoal } from '../types/profile';
 import type { Recommendation } from '../types/strategy';
 
 export const DEMO_SIGNALS: Signal[] = [
@@ -189,7 +190,7 @@ export const DEMO_PROFILE = {
   businessStage: 'Growing Startup' as const,
   revenueRange: '$200K - $500K' as const,
   teamSize: '6 - 20' as const,
-  goals: ['Increase revenue', 'Expand customer base', 'Improve competitive positioning'],
+  goals: ['Increase revenue', 'Expand customer base', 'Improve competitive positioning'] as BusinessGoal[],
   biggestChallenge: 'Jumia has just entered our market and we need to differentiate quickly without getting into a price war we cannot sustain.',
   targetMarket: 'Africa' as const,
   geographies: ['Nigeria'],
