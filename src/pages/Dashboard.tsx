@@ -6,15 +6,15 @@ import { SignalCard } from '../component/dashboard/SignalCard';
 import { SignalDetailModal } from '../component/dashboard/SignalDetailMode';
 import { Spinner } from '../component/ui/Spinner';
 import { Button } from '../component/ui/Button';
+import { PriorityMatrix } from '../component/dashboard/PriorityMatrix';
+import { AnimatedCounter } from '../component/ui/AnimatedCounter';
 import type { Signal } from '../types/intelligence';
-import type { PriorityMatrix } from '../component/dashboard/PriorityMatrix'
-
 
 export const DashboardPage: FC = () => {
-  const { profile }                              = useProfileStore();
-  const { signals, lastGeneratedAt }             = useIntelligenceStore();
-  const { generate, isLoading, error, summary }  = useIntelligence();
-  const [selectedSignal, setSelectedSignal]      = useState<Signal | null>(null);
+  const { profile }                             = useProfileStore();
+  const { signals, lastGeneratedAt }            = useIntelligenceStore();
+  const { generate, isLoading, error, summary } = useIntelligence();
+  const [selectedSignal, setSelectedSignal]     = useState<Signal | null>(null);
 
   const visibleSignals = signals.filter((s) => !s.dismissed);
 
@@ -31,6 +31,18 @@ export const DashboardPage: FC = () => {
         month: 'long',
         day: 'numeric',
       })
+    : null;
+
+  // Time since last generated
+  const timeSince = lastGeneratedAt
+    ? (() => {
+        const mins = Math.floor(
+          (Date.now() - new Date(lastGeneratedAt).getTime()) / 60000,
+        );
+        if (mins < 1)  return 'just now';
+        if (mins < 60) return `${mins}m ago`;
+        return `${Math.floor(mins / 60)}h ago`;
+      })()
     : null;
 
   return (
@@ -50,13 +62,28 @@ export const DashboardPage: FC = () => {
             <span className="text-cyan">{profile.businessName}</span> today
           </p>
         </div>
-        <Button
-          variant="ghost"
-          onClick={() => void generate()}
-          loading={isLoading}
-        >
-          ↻ Refresh Intelligence
-        </Button>
+
+        {/* Pulse indicator + refresh button */}
+        <div className="flex items-center gap-3">
+          {timeSince && !isLoading && (
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-emerald opacity-75 animate-[pulse-glow_2s_ease-in-out_infinite]" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald" />
+              </span>
+              <span className="font-mono text-[10px] text-textSecondary">
+                Updated {timeSince}
+              </span>
+            </div>
+          )}
+          <Button
+            variant="ghost"
+            onClick={() => void generate()}
+            loading={isLoading}
+          >
+            ↻ Refresh
+          </Button>
+        </div>
       </div>
 
       {/* Loading */}
@@ -101,27 +128,63 @@ export const DashboardPage: FC = () => {
         </div>
       )}
 
-      {/* Stats row */}
+      {/* Animated stats row */}
       {!isLoading && visibleSignals.length > 0 && (
-       
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-           
           {[
-            { label: 'Total Signals',  value: visibleSignals.length, color: 'text-cyan' },
-            { label: 'Critical / High', value: visibleSignals.filter(s => ['Critical','High'].includes(s.impactLevel)).length, color: 'text-amber' },
-            { label: 'Opportunities',  value: visibleSignals.filter(s => s.category === 'Opportunity').length, color: 'text-emerald' },
-            { label: 'Saved',          value: signals.filter(s => s.saved).length, color: 'text-violet' },
+            {
+              label: 'Total Signals',
+              value: visibleSignals.length,
+              color: 'text-cyan',
+              bg:    'border-cyan/10',
+              delay: 0,
+            },
+            {
+              label: 'Critical / High',
+              value: visibleSignals.filter(s =>
+                ['Critical', 'High'].includes(s.impactLevel)
+              ).length,
+              color: 'text-amber',
+              bg:    'border-amber/10',
+              delay: 100,
+            },
+            {
+              label: 'Opportunities',
+              value: visibleSignals.filter(s =>
+                s.category === 'Opportunity'
+              ).length,
+              color: 'text-emerald',
+              bg:    'border-emerald/10',
+              delay: 200,
+            },
+            {
+              label: 'Saved',
+              value: signals.filter(s => s.saved).length,
+              color: 'text-violet',
+              bg:    'border-violet/10',
+              delay: 300,
+            },
           ].map((stat) => (
-            <div key={stat.label} className="card-flat text-center space-y-1">
-              <p className={`text-2xl font-bold font-mono ${stat.color}`}>
-                {stat.value}
-              </p>
+            <div
+              key={stat.label}
+              className={`card-flat text-center space-y-1 border ${stat.bg}`}
+            >
+              <AnimatedCounter
+                value={stat.value}
+                duration={800 + stat.delay}
+                className={`text-3xl font-bold font-mono ${stat.color}`}
+              />
               <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-textSecondary">
                 {stat.label}
               </p>
             </div>
           ))}
         </div>
+      )}
+
+      {/* Priority Matrix */}
+      {!isLoading && visibleSignals.length > 0 && (
+        <PriorityMatrix signals={visibleSignals} />
       )}
 
       {/* Signal grid */}
