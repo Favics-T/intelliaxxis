@@ -54,7 +54,7 @@ export const ResearchPage: FC = () => {
   };
 
   return (
-    <div className="animate-[fade-up_0.5s_ease-out_both] flex h-[calc(100vh-10rem)] gap-5">
+    <div className="animate-fade-up  flex h-[calc(100vh-10rem)] gap-5">
 
       {/* Sidebar — session history */}
       <div className={`flex flex-col gap-3 ${showHistory ? 'w-64 shrink-0' : 'hidden'} md:flex md:w-56 md:shrink-0`}>

@@ -70,16 +70,16 @@ export const PriorityMatrix: FC<Props> = ({ signals }) => {
           <div className="absolute left-0 bottom-0 h-1/2 w-1/2 border-r border-t border-white/5" />
 
           {/* Quadrant labels */}
-          <div className="absolute right-2 top-2 font-mono text-[9px] uppercase tracking-[0.1em] text-danger/60">
+          <div className="absolute right-2 top-2 font-mono text-[9px] uppercase tracking-widest  text-danger/60">
             Act Now
           </div>
-          <div className="absolute left-2 top-2 font-mono text-[9px] uppercase tracking-[0.1em] text-amber/60">
+          <div className="absolute left-2 top-2 font-mono text-[9px] uppercase tracking-widest text-amber/60">
             Monitor
           </div>
-          <div className="absolute right-2 bottom-2 font-mono text-[9px] uppercase tracking-[0.1em] text-cyan/60">
+          <div className="absolute right-2 bottom-2 font-mono text-[9px] uppercase tracking-widest text-cyan/60">
             Quick Wins
           </div>
-          <div className="absolute left-2 bottom-2 font-mono text-[9px] uppercase tracking-[0.1em] text-textDim">
+          <div className="absolute left-2 bottom-2 font-mono text-[9px] uppercase tracking-widest text-textDim">
             Low Priority
           </div>
 
