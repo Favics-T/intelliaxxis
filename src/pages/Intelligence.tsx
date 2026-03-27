@@ -5,6 +5,8 @@ import { useIntelligence } from '../hook/useIntelligence';
 import { SignalCard } from '../component/dashboard/SignalCard';
 import { SignalDetailModal } from '../component/dashboard/SignalDetailMode';
 import { Spinner } from '../component/ui/Spinner';
+import { NewsFeed } from '../component/intelligence/NewsFeed';
+import { TrendChart } from '../component/intelligence/TrendChart';
 import { Button } from '../component/ui/Button';
 import type { Signal } from '../types/intelligence';
 import type { SignalCategory, ImpactLevel } from '../types/intelligence';
@@ -45,7 +47,7 @@ export const IntelligencePage: FC = () => {
     .filter((s) => !showSavedOnly || s.saved);
 
   return (
-    <div className="animate-[fade-up_0.5s_ease-out_both] space-y-6">
+    <div className=" animate-fade-up space-y-6">
 
       {/* Header */}
       <div className="flex flex-wrap items-start justify-between gap-4">
@@ -150,6 +152,10 @@ export const IntelligencePage: FC = () => {
         </div>
       )}
 
+      {!isLoading && signals.length > 0 && (
+  <TrendChart signals={signals} />
+)}
+
       {/* Results count */}
       {!isLoading && filtered.length > 0 && (
         <p className="font-mono text-[11px] text-textSecondary">
@@ -202,6 +208,11 @@ export const IntelligencePage: FC = () => {
           onClose={() => setSelectedSignal(null)}
         />
       )}
+
+      {/* Live News Feed */}
+{!isLoading && (
+  <NewsFeed />
+)}
     </div>
   );
 };
