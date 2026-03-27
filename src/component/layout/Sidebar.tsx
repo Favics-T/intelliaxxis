@@ -9,12 +9,12 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { path: '/dashboard',     label: 'Dashboard',   icon: '⚡' },
-  { path: '/intelligence',  label: 'Intelligence', icon: '🔭' },
-  { path: '/strategy',      label: 'Strategy',     icon: '🎯' },
-  { path: '/research',      label: 'Research',     icon: '💬' },
-  { path: '/digest',        label: 'Digest',       icon: '📋' },
-  { path: '/competitors',   label: 'Competitors',  icon: '🔍' },
+  { path: '/dashboard',     label: 'Dashboard',   icon: '' },
+  { path: '/intelligence',  label: 'Intelligence', icon: '' },
+  { path: '/strategy',      label: 'Strategy',     icon: '' },
+  { path: '/research',      label: 'Research',     icon: '' },
+  { path: '/digest',        label: 'Digest',       icon: '' },
+  { path: '/competitors',   label: 'Competitors',  icon: '' },
 ];
 
 interface Props {

@@ -10,13 +10,13 @@ const IMPACT_STYLES: Record<string, string> = {
 };
 
 const CATEGORY_ICONS: Record<string, string> = {
-  'Market Trend':      '📈',
-  'Competitor Move':   '🔍',
-  'Regulation':        '⚖️',
-  'Technology':        '⚡',
-  'Consumer Behavior': '👥',
-  'Economic Signal':   '💹',
-  'Opportunity':       '🎯',
+  'Market Trend':      '',
+  'Competitor Move':   '',
+  'Regulation':        '',
+  'Technology':        '',
+  'Consumer Behavior': '',
+  'Economic Signal':   '',
+  'Opportunity':       '',
 };
 
 interface Props {
