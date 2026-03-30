@@ -183,9 +183,9 @@ export const DashboardPage: FC = () => {
       )}
 
       {/* Priority Matrix */}
-      {!isLoading && visibleSignals.length > 0 && (
+      {/* {!isLoading && visibleSignals.length > 0 && (
         <PriorityMatrix signals={visibleSignals} />
-      )}
+      )} */}
 
       {/* Signal grid */}
       {!isLoading && visibleSignals.length > 0 && (

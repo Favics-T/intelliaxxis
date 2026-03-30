@@ -9,87 +9,104 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { path: '/dashboard',     label: 'Dashboard',   icon: '' },
-  { path: '/intelligence',  label: 'Intelligence', icon: '' },
-  { path: '/strategy',      label: 'Strategy',     icon: '' },
-  { path: '/research',      label: 'Research',     icon: '' },
-  { path: '/digest',        label: 'Digest',       icon: '' },
-  { path: '/competitors',   label: 'Competitors',  icon: '' },
+  { path: '/dashboard',    label: 'Dashboard',    icon: '' },
+  { path: '/intelligence', label: 'Intelligence',  icon: '' },
+  { path: '/strategy',     label: 'Strategy',      icon: '' },
+  { path: '/research',     label: 'Research',      icon: '' },
+  { path: '/digest',       label: 'Digest',        icon: '' },
+  { path: '/competitors',  label: 'Competitors',   icon: '' },
 ];
 
-interface Props {
-  onClose?: () => void;
-}
+interface Props { onClose?: () => void }
 
 export const Sidebar: FC<Props> = ({ onClose }) => {
   const { profile } = useProfileStore();
 
   return (
-    <aside className="flex h-full w-60 flex-col border-r border-white/5 bg-surface">
+    <aside className="flex h-full w-60 flex-col border-r border-border bg-white">
       {/* Logo */}
-      <div className="flex items-center justify-between border-b border-white/5 px-5 py-5">
+      <div className="flex items-center justify-between border-b border-border px-5 py-4">
         <div className="flex items-center gap-2.5">
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-cyan/10 border border-cyan/30 font-mono text-xs text-cyan font-bold">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue font-mono text-xs font-bold text-white">
             IX
-          </span>
-          <span className="font-mono text-sm font-medium tracking-[0.06em] text-textPrimary">
-            IntelliAxis
-          </span>
+          </div>
+          <div>
+            <p className="text-[13px] font-bold text-textPrimary tracking-tight">
+              IntelliAxis
+            </p>
+            <p className="text-[10px] text-textSecondary">
+              Industry Intelligence
+            </p>
+          </div>
         </div>
-        {/* Close button — mobile only */}
         {onClose && (
           <button
             onClick={onClose}
-            className="rounded-lg border border-white/10 p-1 text-textSecondary hover:text-textPrimary md:hidden"
+            className="rounded-lg p-1 text-textSecondary hover:bg-surface2 md:hidden"
           >
             ✕
           </button>
         )}
       </div>
 
+      {/* Business badge */}
+      {profile.businessName && (
+        <div className="mx-3 mt-3 rounded-lg bg-blueLight border border-blue/10 px-3 py-2">
+          <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-blue mb-0.5">
+            Active Profile
+          </p>
+          <p className="text-[12px] font-semibold text-textPrimary truncate">
+            {profile.businessName}
+          </p>
+          <p className="text-[11px] text-textSecondary truncate">
+            {profile.industry}
+          </p>
+        </div>
+      )}
+
       {/* Nav */}
-      <nav className="flex-1 space-y-0.5 p-3">
+      <nav className="flex-1 space-y-0.5 p-3 mt-2">
         {NAV_ITEMS.map((item) => (
           <NavLink
             key={item.path}
             to={item.path}
             onClick={onClose}
             className={({ isActive }) =>
-              `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-all duration-150 ${
+              `flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all ${
                 isActive
-                  ? 'bg-cyan/10 text-cyan border border-cyan/20'
-                  : 'text-textSecondary hover:bg-white/5 hover:text-textPrimary border border-transparent'
+                  ? 'bg-blueLight text-blue font-semibold'
+                  : 'text-textSecondary hover:bg-surface hover:text-textPrimary'
               }`
             }
           >
             <span className="text-base">{item.icon}</span>
-            <span className="font-sans text-[13px]">{item.label}</span>
+            <span className="text-[13px]">{item.label}</span>
           </NavLink>
         ))}
       </nav>
 
       {/* Profile footer */}
-      <div className="border-t border-white/5 p-4">
+      <div className="border-t border-border p-3">
         <NavLink
           to="/profile"
           onClick={onClose}
           className={({ isActive }) =>
-            `flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all ${
+            `flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all ${
               isActive
-                ? 'bg-cyan/10 text-cyan'
-                : 'text-textSecondary hover:bg-white/5 hover:text-textPrimary'
+                ? 'bg-blueLight text-blue'
+                : 'text-textSecondary hover:bg-surface hover:text-textPrimary'
             }`
           }
         >
-          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-surface2 border border-white/10 font-mono text-[11px] text-textSecondary">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue font-sans text-[12px] font-bold text-white">
             {profile.founderName ? profile.founderName[0].toUpperCase() : '?'}
           </div>
           <div className="min-w-0">
-            <p className="truncate text-[12px] font-medium text-textPrimary">
-              {profile.businessName || 'My Business'}
+            <p className="truncate text-[12px] font-semibold text-textPrimary">
+              {profile.founderName || 'My Profile'}
             </p>
             <p className="truncate text-[10px] text-textSecondary">
-              {profile.industry || 'Setup profile'}
+              {profile.businessStage || 'Setup profile'}
             </p>
           </div>
         </NavLink>

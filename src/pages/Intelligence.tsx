@@ -152,9 +152,9 @@ export const IntelligencePage: FC = () => {
         </div>
       )}
 
-      {!isLoading && signals.length > 0 && (
+      {/* {!isLoading && signals.length > 0 && (
   <TrendChart signals={signals} />
-)}
+)} */}
 
       {/* Results count */}
       {!isLoading && filtered.length > 0 && (
