@@ -73,14 +73,14 @@ export const IntelligencePage: FC = () => {
       </div>
 
       {/* Filters */}
-      {!isLoading && signals.length > 0 && (
-        <div className="space-y-3">
+      {/* {!isLoading && signals.length > 0 && ( */}
+        {/* <div className="space-y-3"> */}
           {/* Category filter */}
-          <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-textSecondary mb-2">
-              Category
-            </p>
-            <div className="flex flex-wrap gap-2">
+          {/* <div> */}
+            {/* <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-textSecondary mb-2"> */}
+              {/* Category */}
+            {/* </p> */}
+            {/* <div className="flex flex-wrap gap-2">
               {(['All', ...CATEGORIES] as const).map((cat) => (
                 <button
                   key={cat}
@@ -94,11 +94,11 @@ export const IntelligencePage: FC = () => {
                   {cat}
                 </button>
               ))}
-            </div>
-          </div>
+            </div> */}
+          {/* </div> */}
 
           {/* Impact + saved filters */}
-          <div className="flex flex-wrap items-center gap-3">
+          {/* <div className="flex flex-wrap items-center gap-3">
             <div className="flex flex-wrap gap-2">
               {(['All', ...IMPACT_LEVELS] as const).map((level) => (
                 <button
@@ -126,7 +126,7 @@ export const IntelligencePage: FC = () => {
             </button>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Loading */}
       {isLoading && (
@@ -157,14 +157,14 @@ export const IntelligencePage: FC = () => {
 )} */}
 
       {/* Results count */}
-      {!isLoading && filtered.length > 0 && (
+      {/* {!isLoading && filtered.length > 0 && (
         <p className="font-mono text-[11px] text-textSecondary">
           Showing {filtered.length} of {signals.filter(s => !s.dismissed).length} signals
         </p>
-      )}
+      )} */}
 
       {/* Signal grid */}
-      {!isLoading && filtered.length > 0 && (
+      {/* {!isLoading && filtered.length > 0 && (
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
           {filtered.map((signal, i) => (
             <div key={signal.id} style={{ animationDelay: `${i * 0.06}s` }}>
@@ -172,7 +172,7 @@ export const IntelligencePage: FC = () => {
             </div>
           ))}
         </div>
-      )}
+      )} */}
 
       {/* Empty filtered */}
       {!isLoading && !error && filtered.length === 0 && signals.length > 0 && (
